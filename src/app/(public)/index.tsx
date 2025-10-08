@@ -6,7 +6,13 @@ export default function Page() {
   return (
     <SafeAreaView>
       <View className="bg-black h-full items-center justify-center">
-        <Text className="text-red-500">Você está logado</Text>
+        <Text className="text-red-500">FIPE APP</Text>
+        <Link href={"/sign-in"} className="text-white">
+          Login
+        </Link>
+        <Link href={"/sign-up"} className="text-white">
+          Create account
+        </Link>
       </View>
     </SafeAreaView>
   );
