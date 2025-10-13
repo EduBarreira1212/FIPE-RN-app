@@ -3,6 +3,7 @@ import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import FooterBtn from "../../components/FooterBtn";
 
 const HistoryPage = () => {
   return (
@@ -18,21 +19,13 @@ const HistoryPage = () => {
           <Text className="text-2xl">Consultas recentes</Text>
         </View>
         <View className="w-full items-center justify-around flex-row">
-          <Pressable
-            className="items-center gap-1"
+          <FooterBtn
+            active={false}
+            icon={"search-outline"}
+            text="Consultar"
             onPress={() => router.push("/")}
-          >
-            <Ionicons name="search-outline" size={35} />
-            <Text className="font-semibold">Consultar</Text>
-          </Pressable>
-          <Pressable
-            className="items-center gap-1"
-            onPress={() => router.push("/history")}
-            disabled
-          >
-            <Ionicons name="refresh-outline" size={35} color="#4ade80" />
-            <Text className="text-green-400 font-semibold">Histórico</Text>
-          </Pressable>
+          />
+          <FooterBtn active icon={"refresh-outline"} text="Histórico" />
         </View>
       </View>
     </SafeAreaView>
