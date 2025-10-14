@@ -11,8 +11,10 @@ import {
   Platform,
   ScrollView,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import { SignUpInput, signUpSchema } from "../schemas/signUp";
+import { useAuth } from "../hooks/useAuth";
 
 const SignUpForm = () => {
   const {
@@ -32,12 +34,15 @@ const SignUpForm = () => {
     mode: "onChange",
   });
 
+  const { signUp } = useAuth();
+
   const onSubmit = async (data: SignUpInput) => {
     try {
-      console.log(data);
+      await signUp(data);
       reset();
     } catch (e) {
-      setError("root", { message: "Something went wrong. Try again." });
+      console.log(e);
+      Alert.alert("Erro ao criar conta. Tente novamente.");
     }
   };
 

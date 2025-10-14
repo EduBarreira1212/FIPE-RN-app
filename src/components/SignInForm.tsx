@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "expo-router";
 import { useForm, Controller } from "react-hook-form";
-import { View, TextInput, Pressable, Text } from "react-native";
+import { View, TextInput, Pressable, Text, Alert } from "react-native";
 import { SignInInput, signInSchema } from "../schemas/signIn";
+import { useAuth } from "../hooks/useAuth";
 
 const SignInForm = () => {
   const {
@@ -20,12 +21,15 @@ const SignInForm = () => {
     mode: "onChange",
   });
 
+  const { signIn } = useAuth();
+
   const onSubmit = async (data: SignInInput) => {
     try {
-      console.log(data);
+      await signIn(data);
       reset();
     } catch (e) {
-      setError("root", { message: "Something went wrong. Try again." });
+      console.log(e);
+      Alert.alert("Erro ao fazer login. Tente novamente.");
     }
   };
 
