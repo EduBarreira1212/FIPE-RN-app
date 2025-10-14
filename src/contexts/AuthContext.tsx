@@ -32,14 +32,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const { mutateAsync: signUp } = useMutation({
     mutationFn: async (params: SignUpParams) => {
-      const { data } = await httpClient.post("/user", params);
+      const { data } = await httpClient.post("/users", params);
       console.log(data);
     },
   });
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: true, isLoading: false, signIn, signUp }}
+      value={{ isLoggedIn: false, isLoading: false, signIn, signUp }}
     >
       {children}
     </AuthContext.Provider>
