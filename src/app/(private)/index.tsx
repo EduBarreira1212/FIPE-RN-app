@@ -14,6 +14,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import FooterBtn from "../../components/FooterBtn";
+import { useAuth } from "../../hooks/useAuth";
+import Header from "../../components/Header";
 
 export default function Page() {
   const router = useRouter();
@@ -30,7 +32,7 @@ export default function Page() {
             keyboardShouldPersistTaps="handled"
           >
             <View className="h-full items-center justify-between">
-              <Text className="text-2xl">Consulta FIPE</Text>
+              <Header arrowLeft={false} />
               <View className="flex-1 border-t border-b border-gray-300 my-4 w-full items-center justify-center gap-5">
                 <View className="w-full items-center">
                   <Image
