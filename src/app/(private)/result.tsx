@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import FooterBtn from "../../components/FooterBtn";
 import { IVehicleData } from "../../types";
 import FipeResponseItem from "../../components/FipeResponseItem";
+import Header from "../../components/Header";
 
 const ResultPage = () => {
   const router = useRouter();
@@ -51,12 +52,7 @@ const ResultPage = () => {
   return (
     <SafeAreaView>
       <View className="h-full items-center justify-between relative">
-        <View className="flex-row w-full px-3 items-center justify-center relative">
-          <Pressable className="absolute left-3" onPress={() => router.back()}>
-            <Ionicons name="arrow-back" size={30} />
-          </Pressable>
-          <Text className="text-2xl text-center">Consulta FIPE</Text>
-        </View>
+        <Header arrowLeft />
         <View className="flex-1 border-t border-b border-gray-300 my-4 py-3 w-full items-center gap-5">
           <FipeResponseItem vehicle={vehicleData} />
         </View>
