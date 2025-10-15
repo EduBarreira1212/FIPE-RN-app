@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import FooterBtn from "../../components/FooterBtn";
 import HistoryItem from "../../components/HistoryItem";
+import Header from "../../components/Header";
 
 const historyList = [
   {
@@ -28,12 +29,7 @@ const HistoryPage = () => {
   return (
     <SafeAreaView>
       <View className="h-full items-center justify-between relative">
-        <View className="flex-row w-full px-3 items-center justify-center relative">
-          <Pressable className="absolute left-3" onPress={() => router.back()}>
-            <Ionicons name="arrow-back" size={30} />
-          </Pressable>
-          <Text className="text-2xl text-center">Consulta FIPE</Text>
-        </View>
+        <Header arrowLeft />
         <View className="flex-1 border-t border-b border-gray-300 my-4 w-full p-5 gap-5">
           <Text className="text-2xl">Consultas recentes</Text>
           <FlatList
