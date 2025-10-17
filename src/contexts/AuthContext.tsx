@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { httpClient } from "../services/httpClient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,7 +14,15 @@ type SignUpParams = {
   password: string;
 };
 
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  history: string[];
+};
+
 interface IAuthContextValue {
+  user: User | null;
   isLoggedIn: boolean;
   isLoading: boolean;
   signIn(params: SignInParams): Promise<void>;
@@ -43,9 +51,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const run = async () => {
       if (!token) {
+        httpClient.defaults.headers.common["Authorization"] = null;
         return;
       }
 
+      httpClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       await AsyncStorage.setItem(TOKEN_STORAGE_KEY, token);
     };
 
@@ -66,6 +76,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     },
   });
 
+  const { data: user } = useQuery({
+    enabled: !!token,
+    queryKey: ["user"],
+    queryFn: async () => {
+      const { data } = await httpClient.get("/me");
+
+      return data;
+    },
+  });
+
   const signOut = useCallback(async () => {
     setToken(null);
     await AsyncStorage.removeItem(TOKEN_STORAGE_KEY);
@@ -79,6 +99,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signIn,
         signUp,
         signOut,
+        user: user ?? null,
       }}
     >
       {children}
