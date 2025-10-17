@@ -11,9 +11,10 @@ httpClient.interceptors.response.use(
   (res) => res,
   async (err) => {
     const status = err.response?.status;
-    if (status === 401) {
+    const url = err.config?.url;
+    if (status === 401 && url !== "/sign-in") {
       await AsyncStorage.removeItem(TOKEN_STORAGE_KEY);
-      router.push('/login');
+      router.push('/sign-in');
     }
     return Promise.reject(err);
   }
