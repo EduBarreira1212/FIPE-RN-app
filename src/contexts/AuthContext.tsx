@@ -32,7 +32,7 @@ interface IAuthContextValue {
 
 export const AuthContext = createContext({} as IAuthContextValue);
 
-const TOKEN_STORAGE_KEY = "@fipe-app::token";
+export const TOKEN_STORAGE_KEY = "@fipe-app::token";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
