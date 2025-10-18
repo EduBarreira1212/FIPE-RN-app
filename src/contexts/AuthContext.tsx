@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { httpClient } from "../services/httpClient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import TOKEN_STORAGE_KEY from "../auth/tokenStorage";
 
 type SignInParams = {
   email: string;
@@ -31,8 +32,6 @@ interface IAuthContextValue {
 }
 
 export const AuthContext = createContext({} as IAuthContextValue);
-
-export const TOKEN_STORAGE_KEY = "@fipe-app::token";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);

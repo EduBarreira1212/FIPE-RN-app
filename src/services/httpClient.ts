@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { TOKEN_STORAGE_KEY } from '../contexts/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
+import TOKEN_STORAGE_KEY from '../auth/tokenStorage';
 
 export const httpClient = axios.create({
     baseURL: 'https://adversarially-nondisciplinable-rayne.ngrok-free.dev/api'
