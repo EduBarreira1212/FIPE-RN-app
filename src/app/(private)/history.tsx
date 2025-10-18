@@ -6,26 +6,22 @@ import { Ionicons } from "@expo/vector-icons";
 import FooterBtn from "../../components/FooterBtn";
 import HistoryItem from "../../components/HistoryItem";
 import Header from "../../components/Header";
-
-const historyList = [
-  {
-    plate: "ABC1234",
-    model: "VW T-Cross comfortline",
-    fipe: 100000,
-  },
-  {
-    plate: "AAA1A11",
-    model: "Ferrari 488",
-    fipe: 2250000,
-  },
-  {
-    plate: "ZZZ0000",
-    model: "Bugatti Veyron",
-    fipe: 20850000,
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { httpClient } from "../../services/httpClient";
+import { useAuth } from "../../hooks/useAuth";
 
 const HistoryPage = () => {
+  const { user } = useAuth();
+
+  const { data: history, isFetching } = useQuery({
+    queryKey: ["history"],
+    queryFn: async () => {
+      const { data } = await httpClient.get(`/users/${user?.id}/get-history`);
+
+      return data;
+    },
+  });
+
   return (
     <SafeAreaView>
       <View className="h-full items-center justify-between relative">
@@ -33,7 +29,7 @@ const HistoryPage = () => {
         <View className="flex-1 border-t border-b border-gray-300 my-4 w-full p-5 gap-5">
           <Text className="text-2xl">Consultas recentes</Text>
           <FlatList
-            data={historyList}
+            data={history}
             keyExtractor={(item) => item.plate}
             renderItem={({ item }) => <HistoryItem vehicle={item} />}
             showsVerticalScrollIndicator={false}
