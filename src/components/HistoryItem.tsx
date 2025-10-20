@@ -6,7 +6,7 @@ interface IHistoryItemProps {
   vehicle: {
     plate: string;
     model: string;
-    created_at: string;
+    updated_at: string;
   };
 }
 
@@ -19,7 +19,7 @@ const HistoryItem = ({ vehicle }: IHistoryItemProps) => {
       <View className="w-[60%] gap-3">
         <Text className="text-base font-medium">{vehicle.model}</Text>
         <Text className="text-base  font-medium">
-          {new Date(vehicle.created_at).toLocaleDateString()}
+          {new Date(vehicle.updated_at).toLocaleDateString()}
         </Text>
       </View>
       <View>
