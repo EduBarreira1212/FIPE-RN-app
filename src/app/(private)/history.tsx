@@ -1,6 +1,12 @@
 import { router } from "expo-router";
 import React from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import FooterBtn from "../../components/FooterBtn";
@@ -13,14 +19,28 @@ import { useAuth } from "../../hooks/useAuth";
 const HistoryPage = () => {
   const { user } = useAuth();
 
-  const { data: history, isFetching } = useQuery({
-    queryKey: ["history"],
+  const { data: history, isLoading } = useQuery({
+    queryKey: ["history", user?.id],
     queryFn: async () => {
-      const { data } = await httpClient.get(`/users/${user?.id}/get-history`);
+      const { data } = await httpClient.get(`/users/${user!.id}/get-history`);
 
       return data;
     },
+    enabled: !!user,
   });
+
+  if (isLoading) {
+    return (
+      <SafeAreaView className="flex-1">
+        <View className="items-center justify-center h-full w-full">
+          <ActivityIndicator size="large" color="#4ade80" />
+          <Text className="text-black text-lg font-semibold mt-4">
+            Buscando histórico...
+          </Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView>
