@@ -6,7 +6,7 @@ interface IHistoryItemProps {
   vehicle: {
     plate: string;
     model: string;
-    fipe: number;
+    created_at: string;
   };
 }
 
@@ -18,15 +18,14 @@ const HistoryItem = ({ vehicle }: IHistoryItemProps) => {
       </View>
       <View className="w-[60%] gap-3">
         <Text className="text-base font-medium">{vehicle.model}</Text>
-        <Text className="text-base text-green-400 font-medium">
-          {vehicle.fipe.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          })}
+        <Text className="text-base  font-medium">
+          {new Date(vehicle.created_at).toLocaleDateString()}
         </Text>
       </View>
       <View>
-        <Text className="text-base font-medium">{vehicle.plate}</Text>
+        <Text className="text-base font-medium text-green-400">
+          {vehicle.plate}
+        </Text>
       </View>
     </View>
   );
