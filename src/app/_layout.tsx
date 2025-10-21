@@ -7,13 +7,27 @@ import { AuthProvider } from "../contexts/AuthContext";
 import { useAuth } from "../hooks/useAuth";
 import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider, DefaultTheme } from "@react-navigation/native";
+
+const queryClient = new QueryClient();
+
+const AppTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#FFFFFF",
+  },
+};
 
 export default function Layout() {
   return (
     <SafeAreaProvider>
-      <AuthProvider>
-        <RootLayout />
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <RootLayout />
+        </AuthProvider>
+      </QueryClientProvider>
     </SafeAreaProvider>
   );
 }
@@ -45,17 +59,19 @@ function RootLayout() {
   }, [appReady]);
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayout}>
+    <View style={{ flex: 1, backgroundColor: "#FFFFFF" }} onLayout={onLayout}>
       {appReady ? (
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Protected guard={isLoggedIn}>
-            <Stack.Screen name="(private)" />
-          </Stack.Protected>
+        <ThemeProvider value={AppTheme}>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Protected guard={isLoggedIn}>
+              <Stack.Screen name="(private)" />
+            </Stack.Protected>
 
-          <Stack.Protected guard={!isLoggedIn}>
-            <Stack.Screen name="(public)" />
-          </Stack.Protected>
-        </Stack>
+            <Stack.Protected guard={!isLoggedIn}>
+              <Stack.Screen name="(public)" />
+            </Stack.Protected>
+          </Stack>
+        </ThemeProvider>
       ) : null}
     </View>
   );
