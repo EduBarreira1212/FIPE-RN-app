@@ -1,8 +1,6 @@
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 import {
-  Pressable,
   Text,
-  TextInput,
   View,
   Image,
   Keyboard,
@@ -12,14 +10,11 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 import FooterBtn from "../../components/FooterBtn";
-import { useAuth } from "../../hooks/useAuth";
 import Header from "../../components/Header";
+import PlateInput from "../../components/PlateInput";
 
 export default function Page() {
-  const router = useRouter();
-
   return (
     <SafeAreaView className="flex-1">
       <KeyboardAvoidingView
@@ -44,18 +39,8 @@ export default function Page() {
                     Insira a placa do veículo para começar
                   </Text>
                 </View>
-                <View className="w-[90%] gap-3">
-                  <TextInput
-                    className="border border-gray-500 w-full rounded-md p-4 text-center text-xl"
-                    placeholder="AAA-1111 ou AAA1A11"
-                  />
-                  <Pressable
-                    className="bg-green-400 w-full flex-row items-center justify-center gap-3 rounded-lg p-3 my-2 active:bg-green-500"
-                    onPress={() => router.push("/result")}
-                  >
-                    <Ionicons name="search-outline" size={35} color="black" />
-                    <Text className="text-lg font-semibold">Consultar</Text>
-                  </Pressable>
+                <View className="w-[90%]">
+                  <PlateInput />
                 </View>
               </View>
               <View className="w-full items-center justify-around flex-row">

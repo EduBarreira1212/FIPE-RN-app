@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const run = async () => {
       if (!token) {
-        httpClient.defaults.headers.common["Authorization"] = null;
+        delete httpClient.defaults.headers.common.Authorization;
         return;
       }
 
@@ -77,7 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const { data: user, isFetching } = useQuery({
     enabled: !!token,
-    queryKey: ["user"],
+    queryKey: ["user", token],
     queryFn: async () => {
       const { data } = await httpClient.get("/me");
 
