@@ -160,11 +160,17 @@ const SignInForm = () => {
               <Text className={`${errorText} mb-2`}>{errors.root.message}</Text>
             )}
             <View className="items-end mb-6">
-              <Link href="/forgot-password">
+              <Pressable
+                onPress={() => {
+                  Alert.alert(
+                    "Problema no servidor, tente novamente mais tarde"
+                  );
+                }}
+              >
                 <Text className="text-sm text-blue-600 dark:text-blue-400">
                   Esqueceu a senha?
                 </Text>
-              </Link>
+              </Pressable>
             </View>
             <Pressable
               onPress={handleSubmit(onSubmit)}

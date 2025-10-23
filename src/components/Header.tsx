@@ -3,6 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "../hooks/useAuth";
 import { router } from "expo-router";
+import { AccountModal } from "./AccountModal";
 
 interface IHeaderProps {
   arrowLeft: boolean;
@@ -18,9 +19,9 @@ const Header = ({ arrowLeft }: IHeaderProps) => {
           <Ionicons name="arrow-back" size={30} />
         </Pressable>
         <Text className="text-2xl text-center">Consulta FIPE</Text>
-        <Pressable className="absolute right-3" onPress={() => signOut()}>
-          <Ionicons name="exit-outline" size={30} />
-        </Pressable>
+        <View className="absolute right-3">
+          <AccountModal />
+        </View>
       </View>
     );
   }
@@ -28,9 +29,9 @@ const Header = ({ arrowLeft }: IHeaderProps) => {
   return (
     <View className="flex-row w-full px-3 items-center justify-center relative">
       <Text className="text-2xl text-center">Consulta FIPE</Text>
-      <Pressable className="absolute right-3" onPress={() => signOut()}>
-        <Ionicons name="exit-outline" size={30} />
-      </Pressable>
+      <View className="absolute right-3">
+        <AccountModal />
+      </View>
     </View>
   );
 };
