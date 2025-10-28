@@ -24,6 +24,7 @@ type User = {
 
 interface IAuthContextValue {
   user: User | null;
+  token: string | null;
   isLoggedIn: boolean;
   isLoading: boolean;
   signIn(params: SignInParams): Promise<void>;
@@ -99,6 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signUp,
         signOut,
         user: user ?? null,
+        token: token,
       }}
     >
       {children}
