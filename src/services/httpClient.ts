@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import TOKEN_STORAGE_KEY from '../auth/tokenStorage';
 
 export const httpClient = axios.create({
-    baseURL: 'https://adversarially-nondisciplinable-rayne.ngrok-free.dev/api'
+    baseURL: process.env.EXPO_PUBLIC_API_URL
 });
 
 httpClient.interceptors.response.use(
